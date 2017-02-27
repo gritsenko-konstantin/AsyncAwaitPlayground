@@ -49,20 +49,20 @@ class AsyncTest {
             new ServiceTwo()
         )
     );
-console.log(await getData());
+    console.log(await getData());
 
-var app = express();
+    var app = express();
 
-app.get('/', async function (req, res) {
-    res.send(await getData());
-});
+    app.get('/', async function (req, res) {
+        res.send(await getData());
+    });
 
-app.get('/at', asyncTest.produceError.bind(asyncTest));
+    app.get('/at', asyncTest.produceError.bind(asyncTest));
 
-app.use((error, req, res, next) => console.error(error.stack()));
+    app.use((error, req, res, next) => console.error(error.stack()));
 
-app.listen(3000, function () {
-    console.log('Example app listening on port 3000!');
-});
+    app.listen(3000, function () {
+        console.log('Example app listening on port 3000!');
+    });
 
 })();
