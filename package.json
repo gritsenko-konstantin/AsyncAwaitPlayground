@@ -1,0 +1,28 @@
+{
+  "name": "async_await_playground",
+  "version": "1.0.0",
+  "description": "Async/Await nodejs 7.6.0+ playground",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.14.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gritsenko-konstantin/AsyncAwaitPlayground.git"
+  },
+  "keywords": [
+    "async",
+    "await",
+    "playground"
+  ],
+  "author": "Konstantin Gritsenko <gritsenko.konstantin@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gritsenko-konstantin/AsyncAwaitPlayground/issues"
+  },
+  "homepage": "https://github.com/gritsenko-konstantin/AsyncAwaitPlayground#readme"
+}
