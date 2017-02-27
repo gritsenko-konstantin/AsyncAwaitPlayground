@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Async/Await nodejs 7.6.0+ playground",
   "main": "index.js",
+  "engines": {
+    "node": "7.6.0"
+  },
   "dependencies": {
     "express": "^4.14.1"
   },
