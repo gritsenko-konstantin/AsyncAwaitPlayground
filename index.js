@@ -9,11 +9,11 @@ let getError = async () => {
 };
 
 let requestPromiseError = async () => {
-    return await rp({uri: 'http://localhost/'});
+    return await rp({url: 'http://localhost:3000/at'});
 };
 
 let asyncRequestError = async () => {
-    return await ar({uri: 'http://localhost/'});
+    return await ar('http://localhost:3000/at');
 };
 
 let getData = async () => {
@@ -39,13 +39,13 @@ class ServiceOne {
         this.__service = service;
     }
     async produceError() {
-        await this.__service.produceError();
+        return await this.__service.produceError();
     }
     async produceRpError() {
-        await this.__service.produceRpError();
+        return await this.__service.produceRpError();
     }
     async produceArError() {
-        await this.__service.produceArError();
+        return await this.__service.produceArError();
     }
 }
 
@@ -66,12 +66,12 @@ class AsyncTest {
             res.send(await this.__service.produceRpError());
         } catch(e) {
             console.error(e);
-            res.status(500).json({});
+            res.status(500).json(e);
         }
     }
     async produceArError(req, res, next) {
         try {
-            res.send(await this.__service.produceArError());
+            res.json(await this.__service.produceArError());
         } catch(e) {
             console.error(e);
             res.status(500).json(e);
