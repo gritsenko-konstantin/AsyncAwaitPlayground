@@ -3,14 +3,19 @@
   "version": "1.0.0",
   "description": "Async/Await nodejs 7.6.0+ playground",
   "main": "index.js",
+  "engineStrict": true,
   "engines": {
-    "node": "7.6.0"
+    "node": ">=7.6.0"
   },
   "dependencies": {
-    "express": "^4.14.1"
+    "async-request": "^1.2.0",
+    "express": "^4.14.1",
+    "request": "^2.79.0",
+    "request-promise": "^4.1.1"
   },
   "devDependencies": {},
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

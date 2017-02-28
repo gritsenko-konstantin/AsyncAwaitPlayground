@@ -1,22 +1,36 @@
 'use strict';
 
+const rp = require('request-promise');
+const ar = require('async-request');
 const express = require('express');
 
 let getError = async () => {
     throw new Error('qwerty');
-}
+};
+
+let requestPromiseError = async () => {
+    return await rp({uri: 'http://localhost/'});
+};
+
+let asyncRequestError = async () => {
+    return await ar({uri: 'http://localhost/'});
+};
 
 let getData = async () => {
     return new Promise(function(resolve, reject) {
-        setTimeout(() => {
-            resolve('Great job, everyone...');
-        }, 500);
+        setTimeout(() => {resolve('Great job, everyone...');}, 500);
     });
 };
 
 class ServiceTwo {
     async produceError() {
         return await getError();
+    }
+    async produceRpError() {
+        return await requestPromiseError();
+    }
+    async produceArError() {
+        return await asyncRequestError();
     }
 }
 
@@ -26,6 +40,12 @@ class ServiceOne {
     }
     async produceError() {
         await this.__service.produceError();
+    }
+    async produceRpError() {
+        await this.__service.produceRpError();
+    }
+    async produceArError() {
+        await this.__service.produceArError();
     }
 }
 
@@ -41,6 +61,22 @@ class AsyncTest {
             res.status(500).json({});
         }
     }
+    async produceRpError(req, res, next) {
+        try {
+            res.send(await this.__service.produceRpError());
+        } catch(e) {
+            console.error(e);
+            res.status(500).json({});
+        }
+    }
+    async produceArError(req, res, next) {
+        try {
+            res.send(await this.__service.produceArError());
+        } catch(e) {
+            console.error(e);
+            res.status(500).json(e);
+        }
+    }
 }
 
 (async () => {
@@ -51,13 +87,15 @@ class AsyncTest {
     );
     console.log(await getData());
 
-    var app = express();
+    const app = express();
 
     app.get('/', async function (req, res) {
         res.send(await getData());
     });
 
     app.get('/at', asyncTest.produceError.bind(asyncTest));
+    app.get('/rp', asyncTest.produceRpError.bind(asyncTest));
+    app.get('/ar', asyncTest.produceArError.bind(asyncTest));
 
     app.use((error, req, res, next) => console.error(error.stack()));
 
